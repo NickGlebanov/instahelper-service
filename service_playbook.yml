@@ -1,0 +1,6 @@
+---
+- name: Service playbook
+  hosts: aws_ec2
+  tasks:
+     - name: Healthcheck
+       command: "ls -a"
