@@ -2,14 +2,39 @@
 - name: Service playbook
   hosts: aws_ec2
   remote_user: ubuntu
+  become: yes
   tasks:
     -
-    - name: Update repositories cache and install golang 1.16 version #todo нужно скачивать с сайта и распаковывать
+    - name: Install tar
       apt:
-        name: golang=1.16.13
-        update_cache: yes
-        upgrade: yes
+        name: tar
+        state: latest
+
+    - name: Install gcc
+      apt:
+        name: build-essential
+        state: latest
+
+    - name: Download go
+      get_url:
+        url: https://dl.google.com/go/go1.16.13.linux-amd64.tar.gz
+        dest: /tmp/go.tar.gz
+        mode: 0700
+
+    - name: Extract go
       become: yes
+      command: /usr/bin/sudo /usr/bin/tar -xvf ./go.tar.gz
+      args:
+        chdir: "/tmp"
+
+    - name: Copy go to local
+      copy:
+        remote_src: yes
+        src: /tmp/go
+        dest: /usr/local
+        owner: ubuntu
+        group: ubuntu
+        mode: '0700'
 
     - name: Clone a repository
       git:
@@ -17,19 +42,30 @@
         dest: "/usr/local/skillbox-diploma"
         clone: yes
         update: yes
-      become: yes
 
-    - name: Install dependencies and start tests
-      ansible.builtin.command: go mod download && go test -v ./...
-      become: yes
+    - name: Install dependencies
+      command: /usr/local/go/bin/go mod download
       args:
         chdir: "/usr/local/skillbox-diploma"
 
+    - name: Start tests
+      command: /usr/local/go/bin/go test -v ./...
+      args:
+        chdir: "/usr/local/skillbox-diploma"
+
+
     - name: Build
-      ansible.builtin.command: GO111MODULE=on go build -o app cmd/server/app.go
-      become: yes
+      command: /usr/bin/sudo /usr/local/go/bin/go build -o app cmd/server/app.go
+      environment:
+        GO111MODULE: on
+        GOROOT: /usr/local/go
+        GOPATH: /usr/local/skillbox-diploma
+        PATH: $GOPATH/bin:$GOROOT/bin:$PATH
+      args:
+        chdir: "/usr/local/skillbox-diploma"
 
     - name: Start server
-      ansible.builtin.command: ./app
-      become: yes
+      shell: ./app
+      args:
+        chdir: "/usr/local/skillbox-diploma"
 
