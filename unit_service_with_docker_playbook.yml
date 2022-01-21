@@ -1,0 +1,103 @@
+---
+- name: Service playbook
+  hosts: aws_ec2
+  remote_user: ubuntu
+  become: yes
+  vars:
+    docker_compose_version: "1.27.4"
+  tasks:
+
+    - name: Update apt cache
+      apt: update_cache=yes cache_valid_time=3600
+
+    - name: Upgrade all apt packages
+      apt: upgrade=dist
+
+    - name: Install dependencies
+      apt:
+        name: "{{ packages }}"
+        state: present
+        update_cache: yes
+      vars:
+        packages:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - software-properties-common
+          - gnupg-agent
+
+    - name: Add an apt signing key for Docker
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: Add apt repository for stable version
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable
+        state: present
+
+    - name: Install Docker
+      apt:
+        name: "{{ packages }}"
+        state: present
+        update_cache: yes
+      vars:
+        packages:
+          - docker-ce
+          - docker-ce-cli
+          - containerd.io
+
+    - name: Add user to docker group
+      user:
+        name: "{{ansible_user}}"
+        group: docker
+
+    - name: Download docker-compose {{ docker_compose_version }}
+      get_url:
+        url: https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-Linux-x86_64
+        dest: ~/docker-compose
+        mode: '+x'
+
+    - name: Check docker-compose exists
+      stat: path=~/docker-compose
+      register: docker_compose
+
+    - name: Move docker-compose to /usr/local/bin/docker-compose
+      command: mv ~/docker-compose /usr/local/bin/docker-compose
+      when: docker_compose.stat.exists
+
+    - name: Clone a repository
+      git:
+        repo: "https://github.com/bhavenger/skillbox-diploma.git"
+        dest: "/usr/local/skillbox-diploma"
+        clone: yes
+        update: yes
+
+    - name: Run tests
+      command: ./run-tests.sh
+      args:
+        chdir: "/usr/local/skillbox-diploma"
+
+    - name: Compose
+      command: /usr/local/bin/docker-compose build
+      args:
+        chdir: "/usr/local/skillbox-diploma"
+
+
+    - name: Copy unit to host
+      copy:
+        src: ./instahelper.service
+        dest: /etc/systemd/system/instahelper.service
+        owner: ubuntu
+        group: ubuntu
+        mode: '0700'
+
+    - name: Enable service
+      systemd:
+        name: instahelper.service
+        state: started
+        enabled: yes
+
+
+
+
