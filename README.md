@@ -5,4 +5,13 @@
 
 # Запуск ansible скриптов
 1. Перед запуском проверьте запущены ли сервера `ansible-inventory --graph -i aws_ec2.yml`
-2. Если сервера запущены, то выполните команду `ansible-playbook service_playbook.yml`
+2. Если сервера запущены, то выполните одну из следующих команд:
+
+### Простой запуск (без использования Docker и Systemd)
+`ansible-playbook service_without_docker_playbook.yml`
+
+### Запуск с использованием Docker (без использования Systemd)
+`ansible-playbook service_with_docker_playbook.yml`
+
+### Запуск с использованием Docker и Systemd
+`ansible-playbook unit_service_with_docker_playbook.yml`
