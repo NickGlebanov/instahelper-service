@@ -1,0 +1,75 @@
+{
+ "files": [
+  {
+   "name": ".",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "meta",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "meta/runtime.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "33e928366577be3645b19ca76b46b2814137e2334cf88e604ba376f26facc399",
+   "format": 1
+  },
+  {
+   "name": "do.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "d0c77454646d17dd52e5b10800f4f7563bd638cf12ab9d61b223e00e27e2f63a",
+   "format": 1
+  },
+  {
+   "name": "README.md",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "f144e866cbc314e18d298009ea649af14692ebe64ad0a9c51e6d162fd1490741",
+   "format": 1
+  },
+  {
+   "name": "roles",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/installdocker",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/installdocker/README.md",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "cc751d75266f757a38189f15d54e548dc87706f14a39756995c27b49eaca8a07",
+   "format": 1
+  },
+  {
+   "name": "roles/installdocker/tasks",
+   "ftype": "dir",
+   "chksum_type": null,
+   "chksum_sha256": null,
+   "format": 1
+  },
+  {
+   "name": "roles/installdocker/tasks/main.yml",
+   "ftype": "file",
+   "chksum_type": "sha256",
+   "chksum_sha256": "32019776a82329ed882ffe42a370a557442a6ea836eed0d33eb1cde83bd10525",
+   "format": 1
+  }
+ ],
+ "format": 1
+}

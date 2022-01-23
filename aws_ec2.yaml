@@ -1,6 +1,7 @@
 ---
 plugin: aws_ec2
 aws_profile: default
+roles: ./roles
 regions:
   - eu-west-1
 filters:

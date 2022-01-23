@@ -1,0 +1,30 @@
+{
+ "collection_info": {
+  "namespace": "oabo",
+  "name": "installdocker",
+  "version": "1.0.3",
+  "authors": [
+   "oabo <99791182@163.com>"
+  ],
+  "readme": "README.md",
+  "tags": [],
+  "description": "Install docker for Ubuntu",
+  "license": [
+   "GPL-2.0-or-later"
+  ],
+  "license_file": null,
+  "dependencies": {},
+  "repository": "http://example.com/repository",
+  "documentation": "http://docs.example.com",
+  "homepage": "http://example.com",
+  "issues": "http://example.com/issue/tracker"
+ },
+ "file_manifest_file": {
+  "name": "FILES.json",
+  "ftype": "file",
+  "chksum_type": "sha256",
+  "chksum_sha256": "d0403f39cc49fee08745b175ae5f5831068ae00b06d58712c529c55c19b30817",
+  "format": 1
+ },
+ "format": 1
+}
