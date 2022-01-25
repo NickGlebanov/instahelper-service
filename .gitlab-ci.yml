@@ -1,7 +1,6 @@
 default:
   only:
-    refs:
-      - master
+    - master
 stages:
   - deploy
 
