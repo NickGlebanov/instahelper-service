@@ -1,6 +1,3 @@
-default:
-  only:
-    - master
 stages:
   - deploy
 
