@@ -13,7 +13,7 @@ stages:
 
 install_dependencies:
   image: ansible/ansible-runner:latest
-  stage: build
+  stage: deploy
   script:
     - pwd
     - ls
