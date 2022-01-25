@@ -1,14 +1,15 @@
 default:
   tags:
     - instahelper_service
-
+  only:
+    refs:
+      - master
 stages:
   - deploy
 
 # variables:
 #  docker_html_path: "/www"
 #  env: prod
-#  deploy_subfolder: html
 
 
 install_dependencies:
