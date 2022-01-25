@@ -1,0 +1,19 @@
+default:
+  tags:
+    - instahelper_service
+
+stages:
+  - deploy
+
+# variables:
+#  docker_html_path: "/www"
+#  env: prod
+#  deploy_subfolder: html
+
+
+install_dependencies:
+  image: ansible/ansible-runner:latest
+  stage: build
+  script:
+    - pwd
+    - ls
