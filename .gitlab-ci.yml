@@ -11,8 +11,9 @@ deploy_service_to_instances:
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
     - eval $(ssh-agent -s)
-    - whereis tr
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
+    - ssh-add <(echo "$SSH_PRIVATE_KEY")
+    #- whereis tr
+    #- echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
     #- echo $SSH_PRIVATE_KEY > ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
     #when: manual
