@@ -9,6 +9,11 @@ deploy_service_to_instances:
   stage: deploy
   #when: manual
   script:
+    - mkdir ~/.aws
+    - |
+      echo "[default] \
+            region = us-east-1 \
+            output = json" > ~/.aws/config
     - pwd
     - ls
     - ansible-inventory --graph -i aws_ec2.yaml
