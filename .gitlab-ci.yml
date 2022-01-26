@@ -8,14 +8,9 @@ deploy_service_to_instances:
   image: cytopia/ansible:latest-aws
   stage: deploy
   before_script:
-    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
-    - eval $(ssh-agent -s)
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
-    - ssh-keyscan ci.diplomproj.ru >> ~/.ssh/known_hosts
-    - chmod 644 ~/.ssh/known_hosts
-
+    - echo $SSH_PRIVATE_KEY > ~/.ssh/id_rsa
     #when: manual
   script:
     - mkdir ~/.aws
