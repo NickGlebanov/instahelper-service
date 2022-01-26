@@ -6,5 +6,6 @@ regions:
   - eu-west-1
 filters:
   instance-state-name : running
+  tag:Name: Service instance
 compose:
   ansible_host: public_ip_address
