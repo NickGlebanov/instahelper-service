@@ -6,6 +6,7 @@ deploy_service_to_instances:
   stage: deploy
   #when: manual
   script:
+    - apt install python3-pip
     - pip install boto3
     - ansible-inventory --graph -i aws_ec2.yaml
     - ansible-playbook unit_service_with_docker_playbook_with_role.yml -vvv
