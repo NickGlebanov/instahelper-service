@@ -1,6 +1,9 @@
 stages:
   - deploy
 
+variables:
+  ANSIBLE_CONFIG: ./ansible.cfg
+
 deploy_service_to_instances:
   image: cytopia/ansible:latest-aws
   stage: deploy
